@@ -11,6 +11,8 @@
 
 
 /*********************Function definition************************/
+
+///////////////////////// Caption 1 & 2 //////////////////////////
 //variable
 void Variable_study();
 void Bool_study();
@@ -18,6 +20,7 @@ void Char_study();
 void Wchar_t_study();
 void Int_study();
 void Float_study();
+void Variable_initial();
 
 //constant
 void Constant_study();
@@ -37,6 +40,11 @@ void Conditional_study();
 
 void Comma_study();
 
+//standard input and output
+void Cin_Cout_study();
+void Common_cin_cout_study();
+void Format_cin_cout_study();
+
 /////////////////////////////////////////////////////////////////
 //                    The main() function                      //
 /////////////////////////////////////////////////////////////////
@@ -44,24 +52,31 @@ int main()
 {
 	std::cout << "\nThis is main() function\n";
 
+	//Caption 1 & 2
 	//Variable_study();
 	//Constant_study();
-	Operator_study();
+	//Operator_study();
+	//Cin_Cout_study();
 
 	std::cout << "\n===================main() end===================\n";
 	return 0;
 }
+
+/////////////////////////////////////////////////////////////////
+//                        Caption 1 & 2                        //
+/////////////////////////////////////////////////////////////////
 
 /******************************* variable **************************************/
 //variable
 void Variable_study() {
 	std::cout << "\nThis is Variable_study() function\n";
 
-	Bool_study();
-	Char_study();
-	Wchar_t_study();
-	Int_study();
-	Float_study();
+	//Bool_study();
+	//Char_study();
+	//Wchar_t_study();
+	//Int_study();
+	//Float_study();
+	Variable_initial();
 
 	std::cout << "\n===================Variable_study() end===================\n";
 }
@@ -133,6 +148,37 @@ void Float_study() {
 	std::cout << realValue; //display the float
 
 	std::cout << "\n===================Float_study() end===================\n";
+}
+
+//initial variable
+void Variable_initial() {
+	std::cout << "\nThis is Variable_initial() function\n";
+
+	////initialize variable support C++ & C
+	//int Amount = 3;         //initialize an int
+	//char ch = 'A';          //initialize a char
+	//float Value = 1.23;     //initialize a float
+
+	////Display the initialized variables
+	//std::cout << Amount;
+	//std::cout << ' ';
+	//std::cout << ch;
+	//std::cout << ' ';
+	//std::cout << Value;
+
+	//initialize variable only support C++
+	int Amount(3);            //initialize an int
+	char ch('A');             //initialize a char
+	float Value(1.23);        //initialize a float
+
+	//Display the initialized variables
+	std::cout << Amount;
+	std::cout << ' ';
+	std::cout << ch;
+	std::cout << ' ';
+	std::cout << Value;
+
+	std::cout << "\n===================Variable_initial() end===================\n";
 }
 
 /********************************* constant **************************************/
@@ -332,6 +378,44 @@ void Comma_study() {
 	std::cout << Val;
 
 	std::cout << "\n===================Comma_study() end===================\n";
+}
+
+/************************************** standard input & output *********************************/
+//cin and cout
+void Cin_Cout_study() {
+	std::cout << "\nThis is Cin_Cout_study() function\n";
+
+	//Common_cin_cout_study();
+	Format_cin_cout_study();
+
+	std::cout << "\n===================Cin_Cout_study() end===================\n";
+}
+
+//common usage
+void Common_cin_cout_study() {
+	std::cout << "\nThis is common_cin_cout_study() function\n";
+
+	int Amount = 3;       //initialize an int
+	char ch = 'A';        //initialize a char
+	float Value = 1.23;   //initialize a float
+
+	//Display the initialized variables
+	std::cout << Amount << ' ' << ch << ' ' << Value << std::endl;
+
+	std::cout << "\n===================common_cin_cout_study() end===================\n";
+}
+
+//format cin and cout
+void Format_cin_cout_study() {
+	std::cout << "\nThis is Format_cin_cout_study() function\n";
+
+	int amount = 123;
+
+	std::cout << std::dec << amount << ' '
+		<< std::oct << amount << ' '
+		<< std::hex << amount;
+
+	std::cout << "\n===================Format_cin_cout_study() end===================\n";
 }
 
 /******************************* key words **************************************/
