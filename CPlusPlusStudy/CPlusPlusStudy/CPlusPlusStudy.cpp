@@ -8,43 +8,11 @@
 
 #include "pch.h"
 #include <iostream>
+#include "CPlusPlusStudy.h"
 
+#include <time.h>
 
-/*********************Function definition************************/
-
-///////////////////////// Caption 1 & 2 //////////////////////////
-//variable
-void Variable_study();
-void Bool_study();
-void Char_study();
-void Wchar_t_study();
-void Int_study();
-void Float_study();
-void Variable_initial();
-
-//constant
-void Constant_study();
-
-//operator
-void Operator_study();
-
-void Assign_study();
-void assign_common_study();
-void assign_expression_study();
-void MoreVariable_assign();
-void Complex_assign();
-
-void DecrementAndIncreament_study();
-
-void Conditional_study();
-
-void Comma_study();
-
-//standard input and output
-void Cin_Cout_study();
-void Common_cin_cout_study();
-void Format_cin_cout_study();
-
+#include <Windows.h>
 /////////////////////////////////////////////////////////////////
 //                    The main() function                      //
 /////////////////////////////////////////////////////////////////
@@ -58,8 +26,86 @@ int main()
 	//Operator_study();
 	//Cin_Cout_study();
 
+	//Caption 3 & 4
+	//Overload_function();
+	Goto_study();
+
 	std::cout << "\n===================main() end===================\n";
 	return 0;
+}
+
+int GetIntelThreadsPerCore()
+{
+	int nHyperThread = 1, nCoresPerProcessor = 1, nLogicalProcessorCount;
+	__asm
+	{
+		// get the number of cores per processor
+		mov eax, 0
+		CPUID
+		cmp eax, 4 // Check to see if cpuid can handle input value of 4
+		jl MultiCore_Not_Support
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		__asm mov eax, 4
+		__asm CPUID
+		__asm mov nCoresPerProcessor, eax
+		if (0 != nCoresPerProcessor)
+		{
+			break;
+		}
+	}
+
+	__asm
+	{
+		and nCoresPerProcessor, 0xFC000000
+		shr nCoresPerProcessor, 26
+		add nCoresPerProcessor, 1
+
+		MultiCore_Not_Support:
+		// get the number of treads per processor
+		mov eax, 1
+			CPUID
+			mov nLogicalProcessorCount, ebx
+			and nLogicalProcessorCount, 0x00ff0000
+			shr nLogicalProcessorCount, 16
+	}
+	nHyperThread = nLogicalProcessorCount / nCoresPerProcessor;
+	return nHyperThread;
+}
+
+int GetIntelCoresPerProcessor()
+{
+	int nCoresPerProcessor = 1;
+	__asm
+	{
+		// get the number of cores per processor
+		mov eax, 0
+		CPUID
+		cmp eax, 4 // Check to see if cpuid can handle input value of 4
+		jl MultiCore_Not_Support
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		__asm mov eax, 4
+		__asm CPUID
+		__asm mov nCoresPerProcessor, eax
+		if (0 != nCoresPerProcessor)
+		{
+			break;
+		}
+	}
+
+	__asm
+	{
+		and nCoresPerProcessor, 0xFC000000
+		shr nCoresPerProcessor, 26
+		add nCoresPerProcessor, 1
+		MultiCore_Not_Support:
+	}
+	return nCoresPerProcessor;
 }
 
 /////////////////////////////////////////////////////////////////
@@ -416,6 +462,125 @@ void Format_cin_cout_study() {
 		<< std::hex << amount;
 
 	std::cout << "\n===================Format_cin_cout_study() end===================\n";
+}
+
+/************************************** Function overload  *********************************/
+//function overload
+void Overload_function() {
+	std::cout << "\nThis is Overload_function() function\n";
+
+	//Overload_copy();
+	Overload_format();
+
+	std::cout << "\n===================Overload_function() end===================\n";
+}
+
+//copy overload
+void Overload_copy() {
+	std::cout << "\nThis is Overload_copy() function\n";
+
+	char misspiggy[20], kerrnit[20];
+	string_copy(misspiggy, "Miss Piggy");
+	string_copy(kerrnit,"Kerrnit, the file transfer protocol", 30);
+
+	std::cout << kerrnit << " and " << misspiggy;
+	//std::cout << kerrnit;
+
+	std::cout << "\n===================Overload_copy() end===================\n";
+}
+
+//The first version of string_copy
+void string_copy(char *dest, const char *src) {
+	std::cout << "\nThis is string_copy2 function\n";
+
+	while ((*dest++ = *src++) != '\0')
+		;
+
+	std::cout << "\n===================string_copy2 end===================\n";
+}
+
+//The sencond version of string_copy
+void string_copy(char *dest, const char *src, int len) {
+	std::cout << "\nThis is string_copy3 function\n";
+
+	//char buffer[100];
+	//int bufsize = sizeof(buffer) / sizeof(buffer[0]);
+	//std::cout << bufsize;
+
+	while (len-- >= 20)
+		;
+	len++;
+	while (len && (*dest++ = *src++) != '\0')
+		--len;
+	if (len == 0)
+		*dest++ = '\0';
+
+	std::cout << "\n===================string_copy3 end===================\n";
+}
+
+//format overload
+void Overload_format() {
+	std::cout << "\nThis is Overload_format() function\n";
+
+	time_t tim;
+	time(&tim);
+	struct tm t;
+	localtime_s(&t, &tim);
+	display_time(t);
+	display_time(&tim);
+
+	std::cout << "\n===================Overload_format() end===================\n";
+}
+
+//The first version of display_time()
+void display_time(const struct tm tim){
+	std::cout << "\nThis is display_time1 function\n";
+
+	char stTmp[32];
+	asctime_s(stTmp, &tim);
+	std::cout << "1. It is now " << stTmp;
+
+	std::cout << "\n===================display_time1 end===================\n";
+}
+
+//The second version of display_time()
+void display_time(time_t *tim) {
+	std::cout << "\nThis is display_time2 function\n";
+
+	char stTmp[32];
+	ctime_s(stTmp, 32, tim);
+	std::cout << "2. It is now " << stTmp;
+
+	std::cout << "\n===================display_time2 end===================\n";
+}
+
+/************************************** goto jumper  *********************************/
+//goto test
+void Goto_study() {
+	std::cout << "\nThis is Goto_study() function\n";
+
+	for (int dept = 1; dept < 10; dept++) {
+		std::cout << "Department " << dept << std::endl;
+		int empl;
+
+		do {
+			std::cout << "Enter Empl # "
+				"(0 to quit, 99 for next dept)";
+			std::cin >> empl;
+
+			if (empl == 0)
+				goto done;
+			if (empl != 99) {
+				std::cout << "Dept: " << dept << ", "
+					<< "Empl: " << empl << std::endl;
+			}
+		} while (empl != 99);
+
+	done:
+		std::cout << "Entry complete" << std::endl;
+	}
+
+	std::cout << "\n===================Goto_study() end===================\n";
 }
 
 /******************************* key words **************************************/
