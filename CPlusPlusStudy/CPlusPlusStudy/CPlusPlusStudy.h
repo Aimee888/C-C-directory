@@ -1,9 +1,6 @@
 #pragma once
 /*********************Function prototype************************/
 
-int GetIntelThreadsPerCore();
-int GetIntelCoresPerProcessor();
-
 ///////////////////////// Caption 1 & 2 //////////////////////////
 //variable
 void Variable_study();

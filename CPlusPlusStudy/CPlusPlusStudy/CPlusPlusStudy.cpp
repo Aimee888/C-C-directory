@@ -1,5 +1,5 @@
 ﻿/*********************************************************/
-/******************** Author: Aimee **********************/
+/******************** Author: zihan **********************/
 /******************** Date: 2019/7/11 ********************/
 /******************** Version: 0.0.0.1 *******************/
 /******************** Destination: For C++ study *********/
@@ -32,80 +32,6 @@ int main()
 
 	std::cout << "\n===================main() end===================\n";
 	return 0;
-}
-
-int GetIntelThreadsPerCore()
-{
-	int nHyperThread = 1, nCoresPerProcessor = 1, nLogicalProcessorCount;
-	__asm
-	{
-		// get the number of cores per processor
-		mov eax, 0
-		CPUID
-		cmp eax, 4 // Check to see if cpuid can handle input value of 4
-		jl MultiCore_Not_Support
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		__asm mov eax, 4
-		__asm CPUID
-		__asm mov nCoresPerProcessor, eax
-		if (0 != nCoresPerProcessor)
-		{
-			break;
-		}
-	}
-
-	__asm
-	{
-		and nCoresPerProcessor, 0xFC000000
-		shr nCoresPerProcessor, 26
-		add nCoresPerProcessor, 1
-
-		MultiCore_Not_Support:
-		// get the number of treads per processor
-		mov eax, 1
-			CPUID
-			mov nLogicalProcessorCount, ebx
-			and nLogicalProcessorCount, 0x00ff0000
-			shr nLogicalProcessorCount, 16
-	}
-	nHyperThread = nLogicalProcessorCount / nCoresPerProcessor;
-	return nHyperThread;
-}
-
-int GetIntelCoresPerProcessor()
-{
-	int nCoresPerProcessor = 1;
-	__asm
-	{
-		// get the number of cores per processor
-		mov eax, 0
-		CPUID
-		cmp eax, 4 // Check to see if cpuid can handle input value of 4
-		jl MultiCore_Not_Support
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		__asm mov eax, 4
-		__asm CPUID
-		__asm mov nCoresPerProcessor, eax
-		if (0 != nCoresPerProcessor)
-		{
-			break;
-		}
-	}
-
-	__asm
-	{
-		and nCoresPerProcessor, 0xFC000000
-		shr nCoresPerProcessor, 26
-		add nCoresPerProcessor, 1
-		MultiCore_Not_Support:
-	}
-	return nCoresPerProcessor;
 }
 
 /////////////////////////////////////////////////////////////////
