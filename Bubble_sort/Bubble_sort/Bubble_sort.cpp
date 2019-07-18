@@ -2,34 +2,45 @@
 #include <iostream>
 using namespace std;
 
-#define len 10  //定义数组长度
+#define len 10  //define array length equal 10
 
-//函数定义
+//function prototype
 void compare(int &a, int &b);
+
+int break_node = 0;//when break_node is true, jump the loop
 
 int main()
 {
-	//冒泡排序
+	//Bubble sort
 	
-	//定义一个长度为10输入数组
+	//define an array which length is 10
 	int array_sort[len];
 
-	//输入排序前数组
+	//input array value
+	cout << "Please input " << len << " number: " << endl;
 	for (int i = 0; i < len; i++)
 		cin >> array_sort[i];
 
 
-	//排序
+	//start sort
 	for (int m = len; m > 0; m--) {
-		for (int j = 0; j < 9; j++) {
+		for (int j = 0; j < m - 1; j++) {
 			compare(array_sort[j],array_sort[j+1]);
+		}
+		if (break_node) {
+			break_node = 0;
+		}
+		else {//while no change data in inner loop, jump out the external loop
+			break;
 		}
 	}
 
-	//输出排序后的数组
+	//output sorted array(high-->low)
+	cout << "Sorted array: " << endl;
 	for (int k = 0; k < len; k++) {
-		cout << array_sort[k] << endl;
+		cout << array_sort[k] << " ";
 	}
+	cout << endl;
 }
 
 void compare(int &a, int &b) {
@@ -39,6 +50,7 @@ void compare(int &a, int &b) {
 		temp = a;
 		a = b;
 		b = temp;
+		break_node++;
 	}
 }
 
