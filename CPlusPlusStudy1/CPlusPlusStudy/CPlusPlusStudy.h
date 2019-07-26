@@ -46,3 +46,7 @@ void Union_initial();
 void DisplayHolder(Holder hld, char *tag);
 
 ///////////////////////// Caption 7 & 8 //////////////////////////
+//hand
+void Hand_study();
+void Storage_study();
+void release_hand();

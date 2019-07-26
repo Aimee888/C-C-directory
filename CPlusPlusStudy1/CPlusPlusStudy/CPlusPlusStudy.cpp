@@ -20,7 +20,10 @@ int main()
 	//Caption 5 & 6
 	//Scope_study();
 	//Struct_study();
-	Union_study();
+	//Union_study();
+
+	//Caption 7 & 8
+	Hand_study();
 
 
 	std::cout << "\n===================main() end===================\n";
@@ -224,3 +227,60 @@ void DisplayHolder(Holder hld, char *tag) {
 
 	std::cout << "\n===================DisplayHolder(Holder hld, char *tag) end===================\n";
 }
+
+
+/////////////////////////////////////////////////////////////////
+//                        Caption 7 & 8                        //
+/////////////////////////////////////////////////////////////////
+
+/******************************* hand **************************************/
+void Hand_study() {
+	std::cout << "\nThis is Hand_study() function\n";
+
+	//Storage_study();
+	release_hand();
+
+	std::cout << "\n===================Hand_study() end===================\n";
+}
+
+//allocate storage
+int a = 0;           //global varieable, store in global/static storage area
+void Storage_study() {
+	std::cout << "\nThis is Storage_study() function\n";
+
+	int b;          // local variable，store in stack
+	int *p = new int();      //allocate by operational character "new"，store in heap
+	static int d;            //static vareable，store in global/static storage area
+	const int e = 0;         //constant，store in constant storage area
+	delete p;                //release the storage of heap
+
+	std::cout << "\n===================Storage_study() end===================\n";
+}
+
+void release_hand() {
+	std::cout << "\nThis is release_hand() function\n";
+
+	int *pCount = new int;
+	std::cout << "Please input the length of the array : " << std::endl;
+	std::cin >> *pCount;
+	std::cout << "Please input the value of the array : " << std::endl;
+	int *pArray = new int[*pCount];
+	for (int i = 0; i < *pCount; i++) {
+		std::cin >> pArray[i];
+	}
+	std::cout << "Array's value as below : \n" << std::endl;
+	for (int j = 0; j < *pCount; j++) {
+		std::cout << "pArray[" << j << "] = " << pArray[j] << "\t";
+	}
+
+	std::cout << std::endl;
+	delete pCount;
+	delete pArray;
+
+	std::cout << "\n===================release_hand() end===================\n";
+}
+
+int a;   //定义一个变量
+const int &b = a;    //定义一个上述变量的引用
+a = 1;   //正确，可以修饰变量
+b = 2;   //错误，不可以通过常饮用修改变量
