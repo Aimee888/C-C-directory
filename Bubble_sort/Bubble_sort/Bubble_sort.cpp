@@ -8,6 +8,7 @@ using namespace std;
 void Method_one();
 void Method_two();
 void compare(int &a, int &b);
+void swap(int *a, int *b);
 
 int break_node = 0;//when break_node is true, jump the loop
 
@@ -16,6 +17,7 @@ int main()
 	//Bubble sort
 	//Method_one();
 	Method_two();
+	//printf("HelloWorld");
 	
 }
 
@@ -87,11 +89,21 @@ void Method_two() {
 void compare(int &a, int &b) {
 	if (a >= b);
 	else {
-		int temp;
-		temp = a;
-		a = b;
-		b = temp;
+		//int temp;
+		//temp = a;
+		//a = b;
+		//b = temp;
+		//break_node++;
+		swap(&a, &b);
 		break_node++;
 	}
 }
+
+//change two variable position
+void swap(int *a, int *b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
 
