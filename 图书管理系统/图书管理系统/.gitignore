@@ -1,0 +1,6 @@
+/Debug
+/Release
+pch.cpp
+pch.h
+book.txt
+reader.txt
